@@ -1,21 +1,11 @@
-#include<bits/stdc++.h>
+#include <opencv2/opencv.hpp>
+#include "encoder.hpp"
+#include "decoder.hpp"
+#include "./util/image.hpp"
 
-using ll = long long;
-using ld = long double;
 using namespace std;
-#define endl "\n";
-#define ff first
-#define ss second
-
-void solve(){
-    cout << "hello world" << endl;
-}
 
 int main() {
-    int T = 1;
-    cin >> T;
-    while(T--){
-        solve();
-    }
+    cout << "hello world" << endl;
     return 0;
 }
