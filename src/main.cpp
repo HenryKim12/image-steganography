@@ -6,6 +6,10 @@
 using namespace std;
 
 int main() {
+    Encoder *encoder = new Encoder();
+    encoder->encode();
+
+
     cout << "hello world" << endl;
     return 0;
 }

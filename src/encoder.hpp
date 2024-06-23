@@ -11,7 +11,8 @@ using std::string;
 class Encoder {
     public: 
         Encoder();
-        cv::Mat encode(cv::Mat & image, string message);
+        //cv::Mat encode(cv::Mat & image, string message);
+        void encode();
 
     private:
         string text_to_binary(string& text);
