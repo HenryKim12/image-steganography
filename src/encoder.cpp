@@ -8,12 +8,8 @@ Encoder::Encoder() {
     
 }
 
-// cv::Mat Encoder::encode(cv::Mat & image, string message) {
-
-// }
-
-void Encoder::encode() {
-    cout << "encoding" << endl;
+cv::Mat Encoder::encode(cv::Mat & image, string message) {
+    
 }
 
 string Encoder::text_to_binary(string& text) {
