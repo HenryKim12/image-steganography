@@ -3,8 +3,13 @@ project(img-sg)
 
 set(CMAKE_CXX_STANDARD 11)
 
+# opencv
 find_package(OpenCV REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
 
 add_executable(img-sg src/main.cpp src/encoder.cpp src/decoder.cpp src/util/image.cpp)
 target_link_libraries(img-sg ${OpenCV_LIBS})
+
+# tests
+include_directories(lib)
+add_subdirectory(tests)
