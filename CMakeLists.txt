@@ -11,5 +11,6 @@ add_executable(img-sg src/main.cpp src/encoder.cpp src/decoder.cpp src/util/imag
 target_link_libraries(img-sg ${OpenCV_LIBS})
 
 # tests
+enable_testing()
 include_directories(lib)
 add_subdirectory(tests)
