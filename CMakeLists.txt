@@ -4,7 +4,8 @@ project(img-sg)
 set(CMAKE_CXX_STANDARD 11)
 
 # opencv
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake-modules)
+# set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake-modules)
+set(OpenCV_DIR "/opt/homebrew/Cellar/opencv/4.9.0_10")
 find_package(OpenCV REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
 
