@@ -16,14 +16,20 @@ jobs:
     steps: 
       - uses: actions/checkout@v4
 
-      - uses: Dovyski/setup-opencv-action@v1.1
-        with:
-          opencv-version: '4.0.0'
+      - name: configure CMake with OpenCV
+        run: | 
+          cmake -Bbuild -S. -DOpenCV_DIR=/opt/homebrew/Cellar/opencv/4.9.0_10
+        working-directory: ${{ github.workspace }}
 
-      - name: generate build files in build dir
+      - name: Install OpenCV Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libopencv-dev
+
+      - name: Generate build files in build dir
         run: cmake -B build
 
-      - name: build project
+      - name: Build project
         run: cmake --build build
 
   # test: 
