@@ -30,17 +30,20 @@ jobs:
       - name: Build project
         run: cmake --build build
 
-  test: 
-    name: run tests
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
+      - name: Run unit tests
+        run: ctest --output-on-failure --test-dir build
 
-      - name: run all unit tests
-        run: |
-          cd build
-          ctest
+  # test: 
+  #   name: run tests
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+
+  #     - name: run all unit tests
+  #       run: |
+  #         cd build
+  #         ctest
 
 
 
