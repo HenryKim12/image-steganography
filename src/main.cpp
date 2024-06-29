@@ -7,8 +7,6 @@ int main() {
     Image *image_helper = new Image();
     cv::Mat image_matrix = image_helper->load_image("../img/squirtle.jpeg");
 
-    Encoder *encoder = new Encoder();
-
    /*
    remove lsb from each pixel in image data
    

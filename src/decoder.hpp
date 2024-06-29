@@ -12,8 +12,6 @@ class Decoder {
     public: 
         Decoder(); 
         string decode(cv::Mat& image);
-
-    private:
         string binary_to_text(string& binary);
 };
 

@@ -15,5 +15,5 @@ cv::Mat Image::load_image(std::string filepath) {
 }
 
 void Image::save_image(std::string& filepath, cv::Mat image) {
-    
+    return;
 }
