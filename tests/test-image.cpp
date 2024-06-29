@@ -3,17 +3,38 @@
 #include <opencv2/opencv.hpp>
 #include <filesystem>
 #include "../src/util/image.hpp"
+#include <iostream>
+#include <bitset>
 
 // relative path is from /build/tests folder
-std::string RAW_IMG_RELATIVE_PATH = "../../img/mona_raw.jpg";
-std::string ENCODED_IMG_RELATIVE_PATH = "../../output/mona_encoded.jpg";
+std::string RAW_IMG_RELATIVE_PATH_V1 = "../../img/mona_raw.jpg";
+std::string ENCODED_IMG_RELATIVE_PATH_V1 = "../../output/mona_encoded.jpg";
 
 TEST_CASE("Load and Save image: 1788x1200", "[image]") {
     Image image_helper;
-    cv::Mat pixels = image_helper.load_image(RAW_IMG_RELATIVE_PATH);
+    cv::Mat pixels = image_helper.load_image(RAW_IMG_RELATIVE_PATH_V1);
     REQUIRE(pixels.rows == 1788);
     REQUIRE(pixels.cols == 1200);
 
-    image_helper.save_image(ENCODED_IMG_RELATIVE_PATH, pixels);
-    REQUIRE(std::__fs::filesystem::exists(ENCODED_IMG_RELATIVE_PATH));
+    image_helper.save_image(ENCODED_IMG_RELATIVE_PATH_V1, pixels);
+    REQUIRE(std::__fs::filesystem::exists(ENCODED_IMG_RELATIVE_PATH_V1));
+}
+
+std::string RAW_IMG_RELATIVE_PATH_V2 = "../../img/charmeleon_236x236.jpg";
+std::string ENCODED_IMG_RELATIVE_PATH_V2 = "../../output/charmeleon236x236.jpg";
+
+TEST_CASE("Pixels to Binary", "[image]") {
+    Image image_helper;
+    cv::Mat pixels = image_helper.load_image(RAW_IMG_RELATIVE_PATH_V2);
+    REQUIRE(pixels.rows == 236);
+    REQUIRE(pixels.cols == 236);
+
+    std::vector<std::vector<int>> binary = image_helper.pixels_to_binary(pixels);
+    for (int i = 0; i < binary.size(); i++) {
+        for (int j = 0; j < binary[0].size(); j++) {
+            int pixel = pixels.at<int>(i, j);
+            int pixel_binary = std::stoi(std::bitset<8>(pixel).to_string()); 
+            REQUIRE(binary[i][j] == pixel_binary);
+        }
+    }
 }
