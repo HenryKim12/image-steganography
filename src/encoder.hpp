@@ -2,17 +2,13 @@
 #define ENCODER_HPP
 
 #include <string>
-#include <vector>
 #include <opencv2/opencv.hpp>
-
-using std::vector;
-using std::string;
 
 class Encoder {
     public: 
         Encoder();
-        // cv::Mat encode(cv::Mat &image, string message);
-        string text_to_binary(string text);
+        cv::Mat encode(cv::Mat image, std::string message);
+        std::string text_to_binary(std::string text);
 };
 
 #endif

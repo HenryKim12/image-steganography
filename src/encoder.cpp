@@ -5,13 +5,11 @@
 
 using namespace std;
 
-Encoder::Encoder() {
+Encoder::Encoder() {}
+
+cv::Mat Encoder::encode(cv::Mat image, string message) {
     
 }
-
-// cv::Mat Encoder::encode(cv::Mat & image, string message) {
-    
-// }
 
 string Encoder::text_to_binary(string text) {
     string binary = ""; 

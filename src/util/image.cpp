@@ -1,9 +1,7 @@
 #include "image.hpp"
 #include <opencv2/opencv.hpp>
 
-Image::Image() {
-
-}
+Image::Image() {}
 
 cv::Mat Image::load_image(std::string filepath) {
     cv::Mat image = cv::imread(filepath, cv::IMREAD_COLOR);
