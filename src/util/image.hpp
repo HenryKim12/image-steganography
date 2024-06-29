@@ -7,7 +7,7 @@ class Image {
     public: 
         Image();
         cv::Mat load_image(std::string filepath);
-        void save_image(std::string& filepath, cv::Mat image);
+        void save_image(std::string filepath, cv::Mat image);
 };
 
 #endif

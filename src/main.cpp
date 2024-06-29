@@ -4,8 +4,8 @@
 #include "./util/image.hpp"
 
 int main() {
-    Image *image_helper = new Image();
-    cv::Mat image_matrix = image_helper->load_image("../img/squirtle.jpeg");
+    Image image_helper;
+    cv::Mat image_matrix = image_helper.load_image("../img/squirtle.jpeg");
 
    /*
    remove lsb from each pixel in image data
