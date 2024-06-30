@@ -17,20 +17,20 @@ cv::Mat Image::load_image(std::string filepath) {
     return image;
 }
 
-vector<vector<int>> Image::pixels_to_binary(cv::Mat pixels) {
-    vector<vector<int>> binary_matrix(pixels.rows, vector<int>(pixels.cols));
+vector<vector<bitset<8>>> Image::pixels_to_binary(cv::Mat pixels) {
+    vector<vector<bitset<8>>> binary_matrix(pixels.rows, vector<bitset<8>>(pixels.cols));
     for (int i = 0; i < pixels.rows; i++) {
         for (int j = 0; j < pixels.cols; j++) {
             int pixel = pixels.at<int>(i, j);
-            string binary = bitset<8>(pixel).to_string(); 
-            binary_matrix[i][j] = stoi(binary);
+            bitset<8> binary = bitset<8>(pixel); 
+            binary_matrix[i][j] = binary;
         }
     }
     return binary_matrix;
 }
 
 cv::Mat Image::binary_to_pixels(cv::Mat binary) {
-
+    
 }
 
 void Image::save_image(std::string filepath, cv::Mat image) {

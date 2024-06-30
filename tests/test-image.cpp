@@ -7,7 +7,7 @@
 #include <bitset>
 
 // relative path is from /build/tests folder
-std::string RAW_IMG_RELATIVE_PATH_V1 = "../../img/mona_raw.jpg";
+std::string RAW_IMG_RELATIVE_PATH_V1 = "../../img/mona_1788x1200.jpg";
 std::string ENCODED_IMG_RELATIVE_PATH_V1 = "../../output/mona_encoded.jpg";
 
 TEST_CASE("Load and Save image: 1788x1200", "[image]") {
@@ -29,12 +29,12 @@ TEST_CASE("Pixels to Binary", "[image]") {
     REQUIRE(pixels.rows == 236);
     REQUIRE(pixels.cols == 236);
 
-    std::vector<std::vector<int>> binary = image_helper.pixels_to_binary(pixels);
-    for (int i = 0; i < binary.size(); i++) {
-        for (int j = 0; j < binary[0].size(); j++) {
+    std::vector<std::vector<std::bitset<8>>> binaries = image_helper.pixels_to_binary(pixels);
+    for (int i = 0; i < binaries.size(); i++) {
+        for (int j = 0; j < binaries[0].size(); j++) {
             int pixel = pixels.at<int>(i, j);
-            int pixel_binary = std::stoi(std::bitset<8>(pixel).to_string()); 
-            REQUIRE(binary[i][j] == pixel_binary);
+            std::bitset<8> pixel_binary = std::bitset<8>(pixel); 
+            REQUIRE(binaries[i][j] == pixel_binary);
         }
     }
 }
