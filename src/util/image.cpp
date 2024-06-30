@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "./RGB.hpp"
 
 using namespace std;
 
@@ -21,6 +22,12 @@ vector<vector<bitset<8>>> Image::pixels_to_binary(cv::Mat pixels) {
     vector<vector<bitset<8>>> binary_matrix(pixels.rows, vector<bitset<8>>(pixels.cols));
     for (int i = 0; i < pixels.rows; i++) {
         for (int j = 0; j < pixels.cols; j++) {
+
+            int B = pixels.at<cv::Vec3b>(i, j)[0];
+            int G = pixels.at<cv::Vec3b>(i, j)[1];
+            int R = pixels.at<cv::Vec3b>(i, j)[2];
+            cout << "[RGB at " << pixels.at<cv::Vec3b>(i, j) << "] " << "R: " << R << ", " << "G: " << G  << ", " << "B: " << B << endl;
+
             int pixel = pixels.at<int>(i, j);
             bitset<8> binary = bitset<8>(pixel); 
             binary_matrix[i][j] = binary;
