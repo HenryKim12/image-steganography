@@ -18,7 +18,7 @@ cv::Mat Image::load_image(std::string filepath) {
     return image;
 }
 
-vector<vector<RGB>> Image::pixels_to_binary(cv::Mat pixels) {
+vector<vector<RGB>> Image::pixels_to_rgb(cv::Mat pixels) {
     vector<vector<RGB>> pixel_b_matrix(pixels.rows, vector<RGB>(pixels.cols));
     for (int i = 0; i < pixels.rows; i++) {
         for (int j = 0; j < pixels.cols; j++) {

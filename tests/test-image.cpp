@@ -30,7 +30,7 @@ TEST_CASE("Pixels to Binary", "[image]") {
     REQUIRE(pixels.rows == 236);
     REQUIRE(pixels.cols == 236);
 
-    std::vector<std::vector<RGB>> binaries = image_helper.pixels_to_binary(pixels);
+    std::vector<std::vector<RGB>> binaries = image_helper.pixels_to_rgb(pixels);
     for (int i = 0; i < binaries.size(); i++) {
         for (int j = 0; j < binaries[0].size(); j++) {
             cv::Vec3b pixel = pixels.at<cv::Vec3b>(i, j);
