@@ -5,6 +5,7 @@
 #include "../src/util/image.hpp"
 #include <iostream>
 #include <bitset>
+#include "../src/util/RGB.hpp"
 
 // relative path is from /build/tests folder
 std::string RAW_IMG_RELATIVE_PATH_V1 = "../../img/mona_1788x1200.jpg";
@@ -29,12 +30,13 @@ TEST_CASE("Pixels to Binary", "[image]") {
     REQUIRE(pixels.rows == 236);
     REQUIRE(pixels.cols == 236);
 
-    std::vector<std::vector<std::bitset<8>>> binaries = image_helper.pixels_to_binary(pixels);
+    std::vector<std::vector<RGB>> binaries = image_helper.pixels_to_binary(pixels);
     for (int i = 0; i < binaries.size(); i++) {
         for (int j = 0; j < binaries[0].size(); j++) {
-            int pixel = pixels.at<int>(i, j);
-            std::bitset<8> pixel_binary = std::bitset<8>(pixel); 
-            REQUIRE(binaries[i][j] == pixel_binary);
+            cv::Vec3b pixel = pixels.at<cv::Vec3b>(i, j);
+            REQUIRE(binaries[i][j].r == pixel[2]);
+            REQUIRE(binaries[i][j].g == pixel[1]);
+            REQUIRE(binaries[i][j].b == pixel[0]);
         }
     }
 }
