@@ -5,6 +5,7 @@
 #include <vector>
 #include <bitset>
 #include "../src/encoder.hpp"
+#include "../src/util/image.hpp"
 
 TEST_CASE("Text to Binary: char", "[encoder]") {
     Encoder encoder;
@@ -24,4 +25,16 @@ TEST_CASE("Text to Binary: string", "[encoder]") {
     for (int i = 0; i < binaries.size(); i++) {
         REQUIRE(binaries[i] == answer[i]);
     }
+}
+
+std::string MONA_8x8_PATH = "../../img/mona_8x8.png";
+
+TEST_CASE("Encode", "[encoder]") {
+    Image image_helper;
+    cv::Mat pixels = image_helper.load_image(MONA_8x8_PATH);
+
+    Encoder encoder;
+    cv::Mat encoded_matrix = encoder.encode(pixels, "hello");
+
+    REQUIRE(1 == 1);
 }
