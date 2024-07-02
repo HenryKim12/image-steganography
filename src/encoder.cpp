@@ -23,7 +23,7 @@ cv::Mat Encoder::encode(cv::Mat image, string message) {
         throw invalid_argument("Error (Encoder::encode): message is too large to encode into image");
     }
 
-    vector<int> msg_bit_list(msg_bit_length);
+    vector<int> msg_bit_list;
     for (int i = 0; i < binary_message.size(); i++) {
         for (int j = 0; j < 8; j++) {
             int bit = (binary_message[i] >> j) & 1;
@@ -31,9 +31,46 @@ cv::Mat Encoder::encode(cv::Mat image, string message) {
         }
     }
 
-    // TODO: implement lsb
+    cv::Mat encoded(image.rows, image.cols, CV_8UC3);
+    int msg_index = 0; 
+    for (int i = 0; i < img_rgbs.size(); i++) {
+        for (int j = 0; j < img_rgbs[0].size(); j++) {
+            if (msg_index == msg_bit_length) {
+                cout << "Reached end of message in encoding" << endl;
+                // TODO: encode something so we know we have reached the end of the string?
+                return encoded; 
+            }
+            RGB pixel_rgb = img_rgbs[i][j];
+            vector<int> rgb(3);
+            rgb.push_back(pixel_rgb.r);
+            rgb.push_back(pixel_rgb.g);
+            rgb.push_back(pixel_rgb.b);
 
-    return image;
+            for (int k = 0; k < 4; k++) {
+                int color = rgb[k];
+                cout << "OG: " << color << endl;
+                color = color & 0xFE;
+                cout << "TRUNCATED: " << color << endl;
+                color = color + msg_bit_list[msg_index];
+                cout << "ADDED: " << msg_bit_list[msg_index] << " at index " << msg_index << endl;
+                cout << "\n" << endl;
+
+                int color_index; // in cv::Mat, cv::Vec3b order is BGR; 
+                if (k == 0) {
+                    color_index = 2;
+                } else if (k == 1) {
+                    color_index = 1;
+                } else {
+                    color_index = 0;
+                }
+                cv::Vec3b pixel = encoded.at<cv::Vec3b>(i, j);
+                pixel[color_index] = color;
+                msg_index++;
+            }
+        }
+    }
+
+    return encoded;
 }
 
 vector<int> Encoder::text_to_binary(string message) {
