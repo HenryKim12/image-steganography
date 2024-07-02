@@ -14,6 +14,8 @@ std::string ENCODED_IMG_RELATIVE_PATH_V1 = "../../output/mona_encoded.jpg";
 TEST_CASE("Load and Save image: 1788x1200", "[image]") {
     Image image_helper;
     cv::Mat pixels = image_helper.load_image(RAW_IMG_RELATIVE_PATH_V1);
+    // bool test = pixels.type() == CV_8UC3;
+    // std::cout << "here" << test << std::endl;
     REQUIRE(pixels.rows == 1788);
     REQUIRE(pixels.cols == 1200);
 

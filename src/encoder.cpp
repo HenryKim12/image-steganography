@@ -31,29 +31,29 @@ cv::Mat Encoder::encode(cv::Mat image, string message) {
         }
     }
 
-    cv::Mat encoded(image.rows, image.cols, CV_8UC3);
+    cv::Mat encoded = image.clone();
+
+    bool msg_complete = false;
     int msg_index = 0; 
     for (int i = 0; i < img_rgbs.size(); i++) {
         for (int j = 0; j < img_rgbs[0].size(); j++) {
-            if (msg_index == msg_bit_length) {
-                cout << "Reached end of message in encoding" << endl;
-                // TODO: encode something so we know we have reached the end of the string?
-                return encoded; 
-            }
             RGB pixel_rgb = img_rgbs[i][j];
             vector<int> rgb(3);
-            rgb.push_back(pixel_rgb.r);
-            rgb.push_back(pixel_rgb.g);
-            rgb.push_back(pixel_rgb.b);
+            rgb.push_back((int) pixel_rgb.r);
+            rgb.push_back((int) pixel_rgb.g);
+            rgb.push_back((int) pixel_rgb.b);
 
-            for (int k = 0; k < 4; k++) {
+            cv::Vec3b &pixel = encoded.at<cv::Vec3b>(i, j);
+            for (int k = 0; k < 3; k++) {
+                if (msg_index >= msg_bit_length) {
+                    cout << "Reached end of message in encoding" << endl;
+                    msg_complete = true;
+                    // return encoded; 
+                }
+
                 int color = rgb[k];
-                cout << "OG: " << color << endl;
                 color = color & 0xFE;
-                cout << "TRUNCATED: " << color << endl;
                 color = color + msg_bit_list[msg_index];
-                cout << "ADDED: " << msg_bit_list[msg_index] << " at index " << msg_index << endl;
-                cout << "\n" << endl;
 
                 int color_index; // in cv::Mat, cv::Vec3b order is BGR; 
                 if (k == 0) {
@@ -63,13 +63,20 @@ cv::Mat Encoder::encode(cv::Mat image, string message) {
                 } else {
                     color_index = 0;
                 }
-                cv::Vec3b pixel = encoded.at<cv::Vec3b>(i, j);
                 pixel[color_index] = color;
                 msg_index++;
             }
+            if (msg_complete) {
+                break;
+            }
+        }
+        if (msg_complete) {
+            break;
         }
     }
 
+
+    cout << "HERE" << endl;
     return encoded;
 }
 
