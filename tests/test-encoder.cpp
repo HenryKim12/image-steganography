@@ -45,21 +45,6 @@ TEST_CASE("Encode 'hi'", "[encoder]") {
         }
     }
 
-    // for (int i = 0; i < encoded_matrix.rows; i++) {
-    //     for (int j = 0; j < encoded_matrix.cols; j++) {
-    //         std::cout << "ORIGINAL" << std::endl;
-    //         cv::Vec3b pixel = pixels.at<int>(i, j);
-    //         std::cout << pixel << std::endl;
-    //         // std::cout << "R: " << (int) pixel[2] << ", " << "G: " << (int) pixel[1] << ", " << "B: " << (int) pixel[0] << std::endl;
-
-    //         std::cout << "ENCODED" << std::endl;
-    //         cv::Vec3b pixel1 = encoded_matrix.at<int>(i, j);
-    //         std::cout << pixel1 << std::endl;
-    //         // std::cout << "R: " << (int) pixel1[2] << ", " << "G: " << (int) pixel1[1] << ", " << "B: " << (int) pixel1[0] << std::endl;
-    //         std::cout << "\n" << std::endl;
-    //     }
-    // }
-
     // h: 0110 1000
     // i: 0110 1001
 
@@ -101,5 +86,5 @@ TEST_CASE("Encode 'hi'", "[encoder]") {
             break;
         }
     }
-    REQUIRE(1 == 1);
+    REQUIRE(1 != 1);
 }

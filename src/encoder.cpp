@@ -6,6 +6,7 @@
 #include <vector>
 #include <stdexcept>
 #include "./util/RGB.hpp"
+#include <typeinfo>
 
 using namespace std;
 
@@ -38,23 +39,20 @@ cv::Mat Encoder::encode(cv::Mat image, string message) {
     for (int i = 0; i < img_rgbs.size(); i++) {
         for (int j = 0; j < img_rgbs[0].size(); j++) {
             RGB pixel_rgb = img_rgbs[i][j];
-            vector<int> rgb(3);
-            rgb.push_back((int) pixel_rgb.r);
-            rgb.push_back((int) pixel_rgb.g);
-            rgb.push_back((int) pixel_rgb.b);
+            vector<int> rgb;
+            rgb.push_back(pixel_rgb.r);
+            rgb.push_back(pixel_rgb.g);
+            rgb.push_back(pixel_rgb.b);
 
             cv::Vec3b &pixel = encoded.at<cv::Vec3b>(i, j);
             for (int k = 0; k < 3; k++) {
                 if (msg_index >= msg_bit_length) {
                     cout << "Reached end of message in encoding" << endl;
                     msg_complete = true;
-                    // return encoded; 
                 }
-
                 int color = rgb[k];
                 color = color & 0xFE;
                 color = color + msg_bit_list[msg_index];
-
                 int color_index; // in cv::Mat, cv::Vec3b order is BGR; 
                 if (k == 0) {
                     color_index = 2;
@@ -75,8 +73,6 @@ cv::Mat Encoder::encode(cv::Mat image, string message) {
         }
     }
 
-
-    cout << "HERE" << endl;
     return encoded;
 }
 
