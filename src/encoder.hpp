@@ -9,7 +9,7 @@
 class Encoder {
     public: 
         Encoder();
-        cv::Mat encode(cv::Mat image, std::string message);
+        cv::Mat encode(cv::Mat& image, std::string message);
         std::vector<int> text_to_binary(std::string message);
 };
 

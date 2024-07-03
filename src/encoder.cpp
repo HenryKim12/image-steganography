@@ -12,7 +12,7 @@ using namespace std;
 
 Encoder::Encoder() {}
 
-cv::Mat Encoder::encode(cv::Mat image, string message) {
+cv::Mat Encoder::encode(cv::Mat& image, string message) {
     vector<int> binary_message = text_to_binary(message);
     Image image_helper;
     vector<vector<RGB>> img_rgbs = image_helper.pixels_to_rgb(image);
@@ -31,9 +31,7 @@ cv::Mat Encoder::encode(cv::Mat image, string message) {
             msg_bit_list.push_back(bit);
         }
     }
-
-    cv::Mat encoded = image.clone();
-
+    
     bool msg_complete = false;
     int msg_index = 0; 
     for (int i = 0; i < img_rgbs.size(); i++) {
@@ -44,7 +42,7 @@ cv::Mat Encoder::encode(cv::Mat image, string message) {
             rgb.push_back(pixel_rgb.g);
             rgb.push_back(pixel_rgb.b);
 
-            cv::Vec3b &pixel = encoded.at<cv::Vec3b>(i, j);
+            cv::Vec3b& pixel = image.at<cv::Vec3b>(i, j);
             for (int k = 0; k < 3; k++) {
                 if (msg_index >= msg_bit_length) {
                     cout << "Reached end of message in encoding" << endl;
@@ -73,7 +71,7 @@ cv::Mat Encoder::encode(cv::Mat image, string message) {
         }
     }
 
-    return encoded;
+    return image;
 }
 
 vector<int> Encoder::text_to_binary(string message) {

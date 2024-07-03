@@ -86,5 +86,4 @@ TEST_CASE("Encode 'hi'", "[encoder]") {
             break;
         }
     }
-    REQUIRE(1 != 1);
 }
