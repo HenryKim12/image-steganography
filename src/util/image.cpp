@@ -43,6 +43,6 @@ void Image::save_image(string filepath, cv::Mat image) {
         cout << "Error: image was not saved." << endl;
         return;
     }
-    cout << "Saved image to " + filepath << endl;
+    cout << "[Image]: Saved image to " + filepath << endl;
     return;
 }

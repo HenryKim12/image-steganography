@@ -32,14 +32,14 @@ string Decoder::decode(cv::Mat& image) {
     }
 
     string message = "";
-    for (int character : msg_characters_decimal) {
-        char c = char(character);
+    for (int character_decimal : msg_characters_decimal) {
+        if (character_decimal == 27) {
+            break;
+        }
+        char c = char(character_decimal);
         message += c;
     }
-
+    // space (value 0) was added to msg_character_decimal, so must remove
+    message.pop_back();
     return message;
 }
-
-// string Decoder::binary_to_text(string binary) {
-//     return "";
-// }
