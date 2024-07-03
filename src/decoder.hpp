@@ -7,8 +7,8 @@
 class Decoder {
     public: 
         Decoder(); 
-        std::string decode(cv::Mat image);
-        std::string binary_to_text(std::string binary);
+        std::string decode(cv::Mat& image);
+        // std::string binary_to_text(std::string binary);
 };
 
 #endif

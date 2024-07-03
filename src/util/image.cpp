@@ -10,7 +10,7 @@ using namespace std;
 
 Image::Image() {}
 
-cv::Mat Image::load_image(std::string filepath) {
+cv::Mat Image::load_image(string filepath) {
     cv::Mat image = cv::imread(filepath, cv::IMREAD_COLOR);
     if (image.empty()) {
         cout << "Error: no image at given filepath" << endl;
@@ -37,7 +37,7 @@ cv::Mat Image::binary_to_pixels(cv::Mat binary) {
     
 }
 
-void Image::save_image(std::string filepath, cv::Mat image) {
+void Image::save_image(string filepath, cv::Mat image) {
     bool result = cv::imwrite(filepath, image);
     if (!result) {
         cout << "Error: image was not saved." << endl;

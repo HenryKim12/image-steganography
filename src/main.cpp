@@ -7,7 +7,7 @@
 int main() {
     try {
         Image image_helper;
-        cv::Mat image_matrix = image_helper.load_image("../img/mona_8x8.png");
+        cv::Mat image_matrix = image_helper.load_image("../img/mona_16x16.png");
         Encoder encoder;
         cv::Mat encoded_img = encoder.encode(image_matrix, "hello world");
         image_helper.save_image("../output/encoded.png", encoded_img);        

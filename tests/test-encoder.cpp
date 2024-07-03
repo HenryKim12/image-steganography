@@ -27,11 +27,11 @@ TEST_CASE("Text to Binary: string", "[encoder]") {
     }
 }
 
-std::string MONA_8x8_PATH = "../../img/mona_16x16.png";
+std::string MONA_16x16_PATH = "../../img/mona_16x16.png";
 
 TEST_CASE("Encode 'hi'", "[encoder]") {
     Image image_helper;
-    cv::Mat pixels = image_helper.load_image(MONA_8x8_PATH);
+    cv::Mat pixels = image_helper.load_image(MONA_16x16_PATH);
 
     Encoder encoder;
     cv::Mat encoded_matrix = encoder.encode(pixels, "hi");
