@@ -47,7 +47,7 @@ cv::Mat Encoder::encode(cv::Mat& image, string message) {
                 if (msg_index >= msg_bit_length) {
                     cout << "[Encoder] Reached end of message in encoding" << endl;
                     // ESC: 27 (0001 1011)
-                    escape_encoding(image, img_rgbs, i, j);
+                    escape_encoding(image, img_rgbs, i, j, k);
                     msg_complete = true;
                     break;
                 }
@@ -87,10 +87,9 @@ vector<int> Encoder::text_to_binary(string message) {
     return binaries;
 }
 
-void Encoder::escape_encoding(cv::Mat& image, const vector<vector<RGB>>& img_rgbs, int currRow, int currCol) {
+void Encoder::escape_encoding(cv::Mat& image, const vector<vector<RGB>>& img_rgbs, int currRow, int currCol, int currChannel) {
     vector<int> ESC_binary = {1, 1, 0, 1, 1, 0, 0, 0};
     int ESC_index = 0;
-
     bool ESC_complete = false;
     for (int i = currRow; i < image.rows; i++) {
         for (int j = currCol; j < image.cols; j++) {
@@ -101,8 +100,13 @@ void Encoder::escape_encoding(cv::Mat& image, const vector<vector<RGB>>& img_rgb
             rgb.push_back(pixel_rgb.b);
 
             cv::Vec3b& pixel = image.at<cv::Vec3b>(i, j);
-            for (int k = 0; k < 3; k++) {
-                if (ESC_index > 8) {
+            int channelStart = 0;
+            if (currChannel != 0) {
+                channelStart = currChannel;
+                currChannel = 0;
+            }
+            for (int k = channelStart; k < 3; k++) {
+                if (ESC_index >= 8) {
                     ESC_complete = true;
                     break;
                 }

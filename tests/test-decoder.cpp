@@ -4,26 +4,20 @@
 #include <iostream>
 #include "../src/decoder.hpp"
 #include "../src/util/image.hpp"
+#include "../src/encoder.hpp"
 
-std::string ENCODED_IMG_PATH = "../../output/encoded.jpg";
+std::string RAW_IMG_PATH = "../../img/mona.png";
+std::string ENCODED_IMG_PATH = "../../output/encoded.png";
 
 TEST_CASE("Decode image", "[decoder]") {
     Image image_helper;
+    cv::Mat raw = image_helper.load_image(RAW_IMG_PATH);
+
+    Encoder encoder;
+    cv::Mat encoded_img = encoder.encode(raw, "hello world");
+    image_helper.save_image(ENCODED_IMG_PATH, encoded_img);
+
     cv::Mat pixels = image_helper.load_image(ENCODED_IMG_PATH);
-
-    cv::Mat pixelst = image_helper.load_image()
-
-    for (int i = 0; i < 1; i++) {
-        for (int j = 0; j < 12; j++) {
-            std::cout << pixels.at<cv::Vec3b>(i, j) << std::endl;
-        }
-    }
-
-    for (int i = 0; i < 1; i++) {
-        for (int j = 0; j < 12; j++) {
-            std::cout << pixels.at<cv::Vec3b>(i, j) << std::endl;
-        }
-    }
 
     Decoder decoder;
     std::string message = decoder.decode(pixels);

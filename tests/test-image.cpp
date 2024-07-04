@@ -8,29 +8,26 @@
 #include "../src/util/RGB.hpp"
 
 // relative path is from /build/tests folder
-std::string RAW_IMG_RELATIVE_PATH_V1 = "../../img/mona_1788x1200.jpg";
-std::string ENCODED_IMG_RELATIVE_PATH_V1 = "../../output/mona_encoded.jpg";
+std::string RAW_IMG_RELATIVE_PATH = "../../img/mona_16x16.png";
+std::string ENCODED_IMG_RELATIVE_PATH = "../../output/test_save.png";
 
-TEST_CASE("Load and Save image: 1788x1200", "[image]") {
+TEST_CASE("Load and Save image: 16x16", "[image]") {
     Image image_helper;
-    cv::Mat pixels = image_helper.load_image(RAW_IMG_RELATIVE_PATH_V1);
+    cv::Mat pixels = image_helper.load_image(RAW_IMG_RELATIVE_PATH);
     // bool test = pixels.type() == CV_8UC3;
     // std::cout << "here" << test << std::endl;
-    REQUIRE(pixels.rows == 1788);
-    REQUIRE(pixels.cols == 1200);
+    REQUIRE(pixels.rows == 16);
+    REQUIRE(pixels.cols == 16);
 
-    image_helper.save_image(ENCODED_IMG_RELATIVE_PATH_V1, pixels);
-    REQUIRE(std::__fs::filesystem::exists(ENCODED_IMG_RELATIVE_PATH_V1));
+    image_helper.save_image(ENCODED_IMG_RELATIVE_PATH, pixels);
+    REQUIRE(std::__fs::filesystem::exists(ENCODED_IMG_RELATIVE_PATH));
 }
-
-std::string RAW_IMG_RELATIVE_PATH_V2 = "../../img/charmeleon_236x236.jpg";
-std::string ENCODED_IMG_RELATIVE_PATH_V2 = "../../output/charmeleon236x236.jpg";
 
 TEST_CASE("Pixels to Binary", "[image]") {
     Image image_helper;
-    cv::Mat pixels = image_helper.load_image(RAW_IMG_RELATIVE_PATH_V2);
-    REQUIRE(pixels.rows == 236);
-    REQUIRE(pixels.cols == 236);
+    cv::Mat pixels = image_helper.load_image(RAW_IMG_RELATIVE_PATH);
+    REQUIRE(pixels.rows == 16);
+    REQUIRE(pixels.cols == 16);
 
     std::vector<std::vector<RGB>> binaries = image_helper.pixels_to_rgb(pixels);
     for (int i = 0; i < binaries.size(); i++) {

@@ -27,23 +27,16 @@ TEST_CASE("Text to Binary: string", "[encoder]") {
     }
 }
 
-std::string MONA_16x16_PATH = "../../img/mona_1788x1200.jpg";
+std::string MONA_16x16_PATH = "../../img/mona_16x16.png";
 
 TEST_CASE("Encode 'hi'", "[encoder]") {
     Image image_helper;
     cv::Mat pixels = image_helper.load_image(MONA_16x16_PATH);
 
-    std::cout << "OG" << std::endl;
-    for (int i = 0; i < 1; i++) {
-        for (int j = 0; j < 6; j++) {
-            std::cout << pixels.at<cv::Vec3b>(i, j) << std::endl;
-        }
-    }
-
     Encoder encoder;
-    cv::Mat encoded_matrix = encoder.encode(pixels, "hi");
+    cv::Mat encoded_matrix = encoder.encode(pixels, "hello world");
 
-    std::vector<int> binary_message = encoder.text_to_binary("hi");
+    std::vector<int> binary_message = encoder.text_to_binary("hello world");
     std::vector<int> msg_bit_list;
     for (int i = 0; i < binary_message.size(); i++) {
         for (int j = 0; j < 8; j++) {
@@ -52,23 +45,17 @@ TEST_CASE("Encode 'hi'", "[encoder]") {
         }
     }
 
-    std::cout << "ENCODED" << std::endl;
-    for (int i = 0; i < 1; i++) {
-        for (int j = 0; j < 6; j++) {
-            std::cout << encoded_matrix.at<cv::Vec3b>(i, j) << std::endl;
-        }
-    }
-
     // h: 0110 1000
     // i: 0110 1001
 
     int msg_index = 0;
     bool msg_complete = false;
+    int msg_limit = 96;
     for (int i = 0; i < encoded_matrix.rows; i++) {
         for (int j = 0; j < encoded_matrix.cols; j++) {
             cv::Vec3b rgb = encoded_matrix.at<cv::Vec3b>(i, j);
 
-            if (msg_index >= 16) {
+            if (msg_index >= msg_limit) {
                 msg_complete = true;
                 break;
             }
@@ -77,7 +64,7 @@ TEST_CASE("Encode 'hi'", "[encoder]") {
             REQUIRE(r_val == msg_bit_list[msg_index]);
             msg_index++;
 
-            if (msg_index >= 16) {
+            if (msg_index >= msg_limit) {
                 msg_complete = true;
                 break;
             }
@@ -86,12 +73,12 @@ TEST_CASE("Encode 'hi'", "[encoder]") {
             REQUIRE(g_val == msg_bit_list[msg_index]);
             msg_index++;
 
-            if (msg_index >= 16) {
+            if (msg_index >= msg_limit) {
                 msg_complete = true;
                 break;
             }
 
-            CHECK(msg_index < 16);
+            CHECK(msg_index < msg_limit);
             int b_val = rgb[0] & 0x01;
             REQUIRE(b_val == msg_bit_list[msg_index]);
             msg_index++;

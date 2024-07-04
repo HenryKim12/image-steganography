@@ -28,7 +28,7 @@ string Decoder::decode(cv::Mat& image) {
             msg_characters_decimal.push_back(value);
             value = 0;
         }
-        value |= msg_bits[i] << (i % 8);
+        value |= (msg_bits[i] << (i % 8));
     }
 
     string message = "";
