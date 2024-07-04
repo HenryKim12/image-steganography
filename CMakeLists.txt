@@ -17,3 +17,4 @@ target_link_libraries(img-sg ${OpenCV_LIBS})
 enable_testing()
 include_directories(lib)
 add_subdirectory(tests)
+

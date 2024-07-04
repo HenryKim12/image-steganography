@@ -27,11 +27,18 @@ TEST_CASE("Text to Binary: string", "[encoder]") {
     }
 }
 
-std::string MONA_16x16_PATH = "../../img/mona_16x16.png";
+std::string MONA_16x16_PATH = "../../img/mona_1788x1200.jpg";
 
 TEST_CASE("Encode 'hi'", "[encoder]") {
     Image image_helper;
     cv::Mat pixels = image_helper.load_image(MONA_16x16_PATH);
+
+    std::cout << "OG" << std::endl;
+    for (int i = 0; i < 1; i++) {
+        for (int j = 0; j < 6; j++) {
+            std::cout << pixels.at<cv::Vec3b>(i, j) << std::endl;
+        }
+    }
 
     Encoder encoder;
     cv::Mat encoded_matrix = encoder.encode(pixels, "hi");
@@ -42,6 +49,13 @@ TEST_CASE("Encode 'hi'", "[encoder]") {
         for (int j = 0; j < 8; j++) {
             int bit = (binary_message[i] >> j) & 1;
             msg_bit_list.push_back(bit);
+        }
+    }
+
+    std::cout << "ENCODED" << std::endl;
+    for (int i = 0; i < 1; i++) {
+        for (int j = 0; j < 6; j++) {
+            std::cout << encoded_matrix.at<cv::Vec3b>(i, j) << std::endl;
         }
     }
 
