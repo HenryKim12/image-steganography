@@ -4,10 +4,10 @@ Image steganography is the process of hiding information inside of images; thus,
 
 ### Steganography vs Cryptography
 
-Although steganography and cryptography both play a role in protecting data, they do so in distinct ways. Cryptography (encryption) transforms data into a format that becomes unreadable 
+Although steganography and cryptography both play a role in protecting data, they do so in distinct ways. Cryptography (encryption) transforms data into an unreadable format 
 without a decryption key. Both symmetric (one key for encryption/decryption - ex. AES) and asymmetric (pair of keys for encryption/decryption - ex. RSA) forms of encryption manipulate the 
-data and make it unaccessible without the appropriate key. However, Steganography does not transform the data, but hides it entirely. This makes it seem as if there is no hidden data to 
-begin with. This can reduce chances of attack due to the hidden existence of data that is embedded in seemingly irrelevant data. 
+data and make it inaccessible without the appropriate key. However, Steganography does not transform the data but hides it entirely. This makes it seem as if there is no hidden data. 
+This can reduce the chances of attack due to the hidden existence of data embedded in seemingly irrelevant data. 
 
 ### LSB Replacement
 
@@ -15,12 +15,12 @@ Can you spot the difference between these two images?
 
 | Raw      | Encoded  |
 | -------- | ------- |
-| ![mona_raw](./img/mona.png) | ![mona_encoded](./output/encoded.png)  |
+| <img src="./img/mona.png" width="300"> | <img src="./output/encoded.png" width="300">  |
 
 The image on the right has an encoded message hidden inside the pixels: "hello world".
 
 LSB (least significant bit) replacement is the common practice of hiding information in the LSB of pixels within an image. By replacing the LSB (the right-most bit), the change to the pixel does 
-not register to the human eye; therefore, making it go by unnoticed. 
+not register to the human eye; therefore, making it go unnoticed. 
 
 For example: 
 Take a look at the following images of red. 
